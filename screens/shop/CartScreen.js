@@ -2,8 +2,9 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList, Button } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import CartItem from '../../components/Shop/CartItem';
+import Card from '../../components/UI/Card';
 import * as cartActions from '../../store/actions/Cart';
-
+import * as orderActions from '../../store/actions/Orders';
 
 const CartScreen = () => {
 
@@ -20,32 +21,36 @@ const CartScreen = () => {
             });
         }
         return transformCartItems.sort((a, b) =>
-        a.productId > b.productId ? 1 : -1);
+            a.productId > b.productId ? 1 : -1);
     })
 
     const dispatch = useDispatch();
 
     return (
         <View style={styles.screen}>
-            <View style={styles.summary}>
+            <Card style={styles.summary}>
                 <Text style={styles.sumatyText}>Total:</Text>
-                <Text style={styles.amount}>$ {cartTotalAmount.toFixed(2)}</Text>
+                <Text style={styles.amount}>$ {Math.round(cartTotalAmount.toFixed(2) * 100 / 100)}</Text>
                 <Button
                     title="Order now"
                     disabled={cartItems.length === 0}
+                    onPress={() => {
+                        dispatch(orderActions.addOrder(cartItems, cartTotalAmount))
+                    }}
                 />
-            </View>
+            </Card>
             <FlatList
                 data={cartItems}
                 keyExtractor={item => item.productId}
                 renderItem={itemData =>
                     <CartItem
-                    quantity ={ itemData.item.quantity}
-                    title = {itemData.item.title}
-                    amount = {itemData.item.sum}
-                    onRemove = {() => {
-                        dispatch(cartActions.removeFromCart(itemData.item.productId))
-                    }}
+                        quantity={itemData.item.quantity}
+                        title={itemData.item.title}
+                        amount={itemData.item.sum}
+                        deletable
+                        onRemove={() => {
+                            dispatch(cartActions.removeFromCart(itemData.item.productId))
+                        }}
                     />}
             />
 
@@ -63,14 +68,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         marginBottom: 20,
-        padding: 10,
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 8,
-        shadowOpacity: .26,
-        elevation: 5,
-        borderRadius: 10,
-        backgroundColor: 'white',
+        padding: 10
     },
     summaryText: {
         fontFamily: 'open-sans-bold',

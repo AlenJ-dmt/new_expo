@@ -4,14 +4,16 @@ import {createStore, combineReducers} from 'redux'
 import {Provider} from 'react-redux'
 import {AppLoading} from 'expo'
 import * as Font from 'expo-font'
+import ordersReducers from './store/reducers/Orders';
 import productsReducers from './store/reducers/products';
-import ProductsOverViewNav from './navigation/ShopNavigator';
+import ShopNavigator from './navigation/ShopNavigator';
 import cartReducer from './store/reducers/Cart';
 
 const rootReducer = combineReducers (
   {
     products: productsReducers,
-    cart: cartReducer
+    cart: cartReducer,
+    orders: ordersReducers
   }
 )
 
@@ -41,7 +43,7 @@ export default function App() {
 
   return (
     <Provider store = {store} >
-      <ProductsOverViewNav/>
+      <ShopNavigator/>
     </Provider>
   );
 }

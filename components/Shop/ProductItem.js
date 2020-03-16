@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet, Button, TouchableOpacity } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import Card from '../UI/Card'
 
 const ProductItem = props => {
     return (
-        <TouchableOpacity onPress={props.onDetailView}>
-        <View style={styles.product}>
+        <TouchableOpacity onPress={props.onSelect}>
+        <Card style={styles.product}>
             <View style = {styles.imageConatiner}>
                 <Image style={styles.image} source={{ uri: props.image }} />
             </View>
@@ -13,23 +14,15 @@ const ProductItem = props => {
                 <Text styles={styles.price}> {props.price} </Text>
             </View>
             <View style={styles.actions}>
-                <Button title='Details' onPress={props.onDetailView} />
-                <Button title='To Cart' onPress={props.onAddToCart} />
+                {props.children}
             </View>
-        </View>
+        </Card>
         </TouchableOpacity>
     );
 };
 
 const styles = StyleSheet.create({
     product: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 8,
-        shadowOpacity: .26,
-        elevation: 5,
-        borderRadius: 10,
-        backgroundColor: 'white',
         height: 300,
         margin: 20
 
