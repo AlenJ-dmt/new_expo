@@ -5,6 +5,7 @@ import HeaderButton from '../../components/UI/HeaderButton'
 import { useSelector, useDispatch } from 'react-redux'
 import * as productActions from '../../store/actions/products'
 import Input from '../../components/UI/Input'
+import ImgPicker from '../../components/UI/ImagePicker'
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -179,6 +180,7 @@ const EditProductScreen = props => {
                         required
                         min={5}
                     />
+                    <ImgPicker/>
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
