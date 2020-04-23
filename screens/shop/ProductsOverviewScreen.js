@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { SearchBar } from 'react-native-elements'
 
 import HeaderButton from '../../components/UI/HeaderButton';
 import ProductItem from '../../components/Shop/ProductItem';

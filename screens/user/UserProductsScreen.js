@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, FlatList, Button, Platform, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
@@ -11,6 +11,8 @@ import * as productsActions from '../../store/actions/products';
 const UserProductsScreen = props => {
   const userProducts = useSelector(state => state.products.userProducts);
   const dispatch = useDispatch();
+  
+  const [seachValue, setSearchValue] = useState('')
 
   const editProductHandler = id => {
     props.navigation.navigate('EditProduct', { productId: id });
@@ -35,6 +37,9 @@ const UserProductsScreen = props => {
         <Text>No products found, maybe start creating some?</Text>
       </View>
     );
+  }
+  const updateSearch = () => {
+    setSearchValue('')
   }
 
   return (
